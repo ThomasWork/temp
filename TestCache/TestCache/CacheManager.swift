@@ -15,6 +15,30 @@ class AppUtil {
     }
 }
 
+class CacheFile {
+    var key: String!
+    var url: String!
+    var lastVisit: Int!
+    var fileSize: Int!
+    init(key: String, url: String) {
+        self.key = key
+        self.url = url
+        self.lastVisit = Int(Date().timeIntervalSince1970)
+        self.fileSize = 100
+    }
+    
+    func getDictionaryValue() -> [Any] {
+        return [self.key, self.url, self.lastVisit, self.fileSize]
+    }
+    
+    init(values: [Any]) {
+        self.key = values[0] as! String
+        self.url = values[1] as! String
+        self.lastVisit = values[2] as! Int
+        self.fileSize = values[3] as! Int
+    }
+}
+
 
 class CacheManager {
     

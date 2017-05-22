@@ -17,12 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let temp = CacheManager.shared.getCacheFileTotalSize()
+      /*  let temp = CacheManager.shared.getCacheFileTotalSize()
         print("total size \(temp)")
         CacheManager.shared.clearAllCache(progress: {
             size in
             print("removed \(size)")
-        })
+        })*/
         
         return true
     }

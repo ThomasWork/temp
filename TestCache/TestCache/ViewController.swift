@@ -9,14 +9,49 @@
 import UIKit
 import AVFoundation
 
-
 class ViewController: UIViewController, AVAssetResourceLoaderDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         NotificationCenter.default.addObserver(self, selector: #selector(playerItemDidReachEnd(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-        setSubviews()
+     //   setSubviews()
+        testUserDefaults()
+    }
+    
+    func testUserDefaults() {
+        var temp: [String: [Any]] = [String: [Any]]()
+        temp["aa"] = ["bb", 12, "haha"]
+        
+        let userDefault = UserDefaults.standard
+        userDefault.set(temp, forKey: "temp")
+        userDefault.synchronize()
+        
+        if let temp2 = userDefault.object(forKey: "temp") as? [String: [Any]] {
+            if let temp22 = temp2["aa"] {
+                
+                let str = temp22[0] as! String
+                print(str)
+                let num = temp22[1] as! Int
+                print(num)
+            }
+        }
+        
+        let seconds = Date().timeIntervalSince1970
+        sleep(3)
+        let s2 = Date().timeIntervalSince1970
+        print(s2 - seconds)
+        
+        let data = CacheFile(key: "www.baid.aa", url: "www.baidu.com")
+        let datatemp = data.getDictionaryValue()//[Any] = ["aa", "www", 1495461791, 100]
+        userDefault.set(datatemp, forKey: "data2")
+        let data2 = userDefault.array(forKey: "data2")
+        let data3 = CacheFile(values: data2!)
+        let t = data3
+        
+        
+        let alert = UIAlertView(title: "温馨提示", message: "保存成功", delegate: nil, cancelButtonTitle: "知道了")
+        alert.show()
     }
     
     var asset: AVURLAsset!
@@ -25,7 +60,7 @@ class ViewController: UIViewController, AVAssetResourceLoaderDelegate {
     var currentIndex: Int = 10
     func setSubviews() {
         print("current-------------------------------------\(currentIndex)")
-        let key = "\(currentIndex).mp4"
+        let key = "\(currentIndex)"
         currentIndex += 1
         playVideo(key: key, url: "https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4")
     }
